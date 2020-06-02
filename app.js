@@ -8,11 +8,11 @@ document.addEventListener('DOMContentLoaded', () => {
   let timerId
   let score = 0
   const colors = [
-    'orange',
-    'red',
-    'purple',
-    'green',
-    'blue'
+    '#F692BC',
+    '#F4ADC6',
+    '#FDFD95',
+    '#AAC5E2',
+    '#6891C3'
   ]
 
   console.log(squares)
@@ -93,6 +93,7 @@ document.addEventListener('DOMContentLoaded', () => {
   document.addEventListener('keyup', control)
 
   function moveDown() {
+    displayShape()
     undraw()
     currentPosition += width
     draw()
@@ -178,7 +179,7 @@ document.addEventListener('DOMContentLoaded', () => {
     })
 
     upNextTetrominoes[nextRandom].forEach( index => {
-      displaySquares[displayIndex + index].classList.add('tetrominos')
+      displaySquares[displayIndex + index].classList.add('tetromino')
       displaySquares[displayIndex + index].style.backgroundColor = colors[nextRandom]
     })
   }

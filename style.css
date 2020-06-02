@@ -1,3 +1,5 @@
+
+
 .container {
     display: flex;
 }
@@ -5,7 +7,7 @@
 .grid {
     width: 200px;
     height: 400px;
-    background-color: yellow;
+    border-style: inset ;
     display: flex;
     flex-wrap: wrap;
 }
@@ -16,7 +18,9 @@
 }
 
 .tetromino {
-    background-color: blue;
+    box-shadow:
+		0px 1px 2px rgba(000,000,000,0.5),
+		inset 2px 3px 0px rgba(255,255,255,0.4);
 }
 
 .mini-grid {
@@ -25,10 +29,14 @@
     height: 80px;
     display: flex;
     flex-wrap: wrap;
-    background-color: yellow;
+    border-style: inset;
 }
 
 .mini-grid div {
     width: 20px;
     height: 20px;
+}
+
+body{
+    background-color: #AFD5AA;
 }
