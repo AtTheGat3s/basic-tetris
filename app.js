@@ -80,30 +80,34 @@ document.addEventListener('DOMContentLoaded', () => {
 
   //assign functions to keyCodes
   function control(e) {
-    if(e.keyCode === 37) {
-      moveLeft()
-    } else if (e.keyCode === 38) {
-      rotate()
-    } else if (e.keyCode === 39) {
-      moveRight()
-    } else if (e.keyCode === 40) {
-      moveDown()
+    if(scoreDisplay.innerHTML != 'End' && timerId != null){
+      if(e.keyCode === 37) {
+        moveLeft()
+      } else if (e.keyCode === 38) {
+        rotate()
+      } else if (e.keyCode === 39) {
+        moveRight()
+      } else if (e.keyCode === 40) {
+        moveDown()
+      }
     }
   }
   document.addEventListener('keyup', control)
 
   function moveDown() {
-    displayShape()
-    undraw()
-    currentPosition += width
-    draw()
-    freeze()
+      undraw()
+      displayShape()
+      if(!current.some(index => squares[currentPosition + index + width].classList.contains('taken'))){
+        currentPosition += width
+      }
+      draw()
+      freeze()
   }
 
   function freeze() {
     if(current.some(index => squares[currentPosition + index + width].classList.contains('taken'))) {
       current.forEach(index => squares[currentPosition + index].classList.add('taken'))
-
+      console.log(current.forEach(index => squares[currentPosition + index].classList.add('taken')))
       //start new Tetromino falling
       random = nextRandom
       nextRandom = Math.floor(Math.random() * theTetrominoes.length)
@@ -153,9 +157,11 @@ document.addEventListener('DOMContentLoaded', () => {
     if(currentRotation === current.length) {
       currentRotation = 0
     }
-
     current = theTetrominoes[random][currentRotation]
     checkRotatedPosition()
+    if(current.some(index => squares[currentPosition + index].classList.contains('taken'))){
+      currentRotation--
+    }
     draw()
   }
 
@@ -246,8 +252,9 @@ document.addEventListener('DOMContentLoaded', () => {
   //game over
   function gameOver() {
     if(current.some(index => squares[currentPosition + index].classList.contains('taken'))){
-      scoreDisplay.innerHTML = 'end'
+      scoreDisplay.innerHTML = 'End'
       clearInterval(timerId)
+      timerId = null
     }
   }
 })
