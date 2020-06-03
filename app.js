@@ -15,8 +15,6 @@ document.addEventListener('DOMContentLoaded', () => {
     '#6891C3'
   ]
 
-  console.log(squares)
-
   //The five Tetrominoes with their four rotations
   const lTetromino = [
     [1, width + 1, width * 2 + 1, 2],
@@ -92,7 +90,7 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     }
   }
-  document.addEventListener('keyup', control)
+  document.addEventListener('keydown', control)
 
   function moveDown() {
       undraw()
@@ -223,6 +221,9 @@ document.addEventListener('DOMContentLoaded', () => {
       clearInterval(timerId)
       timerId = null
     } else {
+      if(scoreDisplay.innerHTML == 'End'){
+        scoreDisplay.innerHTML = 0
+      }
       draw()
       timerId = setInterval(moveDown, 1000)
       nextRandom = Math.floor(Math.random() * theTetrominoes.length)
@@ -255,6 +256,15 @@ document.addEventListener('DOMContentLoaded', () => {
       scoreDisplay.innerHTML = 'End'
       clearInterval(timerId)
       timerId = null
+      for(let i = 0; i < 199; i += width) {
+        const row = [i, i + 1, i + 2, i + 3, i + 4, i + 5, i + 6, i + 7, i + 8, i + 9]
+        row.forEach(index => {
+          squares[index].classList.remove('taken')
+          squares[index].classList.remove('tetromino')
+          squares[index].style.backgroundColor = ''
+        })
+      }
+      
     }
   }
 })
